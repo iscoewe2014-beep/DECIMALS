@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKILLIGENT HANDS TUTORS - Decimals Module 3</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --gold: #c8960c;
+            --gold-light: #f6e05e;
+            --success: #2f855a;
+            --success-bg: #e6fffa;
+            --danger: #c53030;
+            --danger-bg: #fff5f5;
+            --accent: #6b46c1;
+            --accent-bg: #faf5ff;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #faf5ff 0%, #ebf4ff 30%, #f0fff4 70%, #fefcf5 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(107, 70, 193, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(44, 82, 130, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(47, 133, 90, 0.04) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            letter-spacing: 0.3px;
+        }
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        .brand-name {
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+        .brand-subtitle {
+            font-size: 0.7rem;
+            opacity: 0.85;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: #fafbfc;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .progress-section {
+            flex: 1;
+            min-width: 150px;
+        }
+        .progress-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .progress-bar-outer {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #6b46c1, #805ad5, #48bb78);
+            border-radius: 10px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .progress-bar-inner::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--text);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .points-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #faf5ff, #e9d8fd);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-weight: 700;
+            color: #44337a;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .points-badge.pulse {
+            animation: pointPulse 0.5s ease-out;
+        }
+        @keyframes pointPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            30% {
+                transform: scale(1.15);
+                border-color: var(--gold);
+                color: #8b6914;
+            }
+            60% {
+                transform: scale(1.05);
+            }
+        }
+        .points-icon {
+            font-size: 1.3rem;
+        }
+
+        .content-area {
+            padding: 28px 24px 24px;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .topic-tag {
+            display: inline-block;
+            background: #faf5ff;
+            color: #6b46c1;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .question-instruction {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .answer-input {
+            flex: 1;
+            min-width: 180px;
+            padding: 14px 18px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            outline: none;
+            transition: var(--transition);
+            background: #fafbfc;
+            color: var(--text);
+            font-family: inherit;
+        }
+        .answer-input:focus {
+            border-color: #805ad5;
+            box-shadow: 0 0 0 4px rgba(128, 90, 213, 0.1);
+            background: #fff;
+        }
+        .answer-input.input-correct {
+            border-color: #48bb78 !important;
+            background: #f0fff4 !important;
+            box-shadow: 0 0 0 4px rgba(72, 187, 120, 0.1) !important;
+        }
+        .answer-input.input-wrong {
+            border-color: #fc8181 !important;
+            background: #fff5f5 !important;
+            box-shadow: 0 0 0 4px rgba(252, 129, 129, 0.1) !important;
+            animation: shake 0.5s ease;
+        }
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-8px);
+            }
+            40% {
+                transform: translateX(8px);
+            }
+            60% {
+                transform: translateX(-5px);
+            }
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .btn {
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+        .btn-submit {
+            background: #6b46c1;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(107, 70, 193, 0.3);
+        }
+        .btn-submit:hover {
+            background: #553c9a;
+            box-shadow: 0 6px 20px rgba(107, 70, 193, 0.4);
+            transform: translateY(-1px);
+        }
+        .btn-continue {
+            background: var(--gold);
+            color: #1a365d;
+            box-shadow: 0 4px 12px rgba(200, 150, 12, 0.3);
+            font-weight: 700;
+        }
+        .btn-continue:hover {
+            background: #b8860b;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(200, 150, 12, 0.45);
+            transform: translateY(-1px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .feedback {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 14px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        .feedback.show {
+            display: flex;
+            animation: fadeSlideIn 0.3s ease;
+        }
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .feedback.correct {
+            background: var(--success-bg);
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        .feedback.wrong {
+            background: var(--danger-bg);
+            color: #742a2a;
+            border: 1px solid #feb2b2;
+        }
+
+        .lesson-panel {
+            background: #fffdf7;
+            border: 2px solid #f6e05e;
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 16px;
+            display: none;
+            animation: fadeSlideIn 0.4s ease;
+        }
+        .lesson-panel.show {
+            display: block;
+        }
+        .lesson-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #8b6914;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .lesson-title .icon {
+            font-size: 1.4rem;
+        }
+        .lesson-body {
+            color: #5a4a1a;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .lesson-example {
+            background: #fffef5;
+            border-left: 4px solid var(--gold);
+            padding: 14px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            color: #6b5a1a;
+        }
+        .lesson-example strong {
+            color: #8b6914;
+        }
+        .lesson-keypoint {
+            background: #fffbeb;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 600;
+            color: #744210;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .completion-screen {
+            text-align: center;
+            padding: 40px 24px;
+            display: none;
+            animation: fadeSlideIn 0.5s ease;
+        }
+        .completion-screen.show {
+            display: block;
+        }
+        .trophy {
+            font-size: 5rem;
+            animation: bounce 1s ease infinite;
+            display: inline-block;
+        }
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-25px);
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+        .congrats-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a365d;
+            margin: 16px 0 8px;
+        }
+        .congrats-subtitle {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .congrats-qualified {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #6b46c1;
+            background: #faf5ff;
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin: 16px 0;
+            border: 2px solid #d6bcfa;
+        }
+        .final-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8b6914;
+            margin-top: 12px;
+        }
+        .brand-signoff {
+            margin-top: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .app-container {
+                max-width: 100%;
+            }
+            .top-bar {
+                padding: 12px 16px;
+                gap: 8px;
+            }
+            .content-area {
+                padding: 20px 16px 18px;
+                min-height: 300px;
+            }
+            .question-text {
+                font-size: 1.1rem;
+            }
+            .btn {
+                padding: 12px 18px;
+                font-size: 0.9rem;
+            }
+            .answer-input {
+                padding: 12px 14px;
+                font-size: 1rem;
+            }
+            .brand-badge {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+            .brand-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+            .congrats-title {
+                font-size: 1.5rem;
+            }
+            .trophy {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="brand-header">
+            <div class="brand-badge">
+                <div class="brand-icon">SH</div>
+                <div>
+                    <div class="brand-name">SKILLIGENT HANDS TUTORS</div>
+                    <div class="brand-subtitle">Learn at Your Pace, Master Every Concept</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-card" id="mainCard">
+            <div class="top-bar">
+                <div class="progress-section">
+                    <div class="progress-label">🔢 Module 3: Decimals (Place Value, Operations, Rounding)</div>
+                    <div class="progress-bar-outer">
+                        <div class="progress-bar-inner" id="progressBar" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Question 0 of 20</div>
+                </div>
+                <div class="points-badge" id="pointsBadge">
+                    <span class="points-icon">⭐</span>
+                    <span id="pointsDisplay">0 pts</span>
+                </div>
+            </div>
+
+            <div class="content-area" id="contentArea">
+                <div id="questionView">
+                    <span class="topic-tag" id="topicTag">Decimals</span>
+                    <div class="question-number" id="questionNumber">Question 1 of 20</div>
+                    <div class="question-text" id="questionText"></div>
+                    <div class="question-instruction" id="questionInstruction">Type your answer below.</div>
+                    <div class="input-group">
+                        <input type="text" class="answer-input" id="answerInput" placeholder="Your answer..." autocomplete="off">
+                        <button class="btn btn-submit" id="submitBtn">✅ Submit</button>
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="lesson-panel" id="lessonPanel">
+                        <div class="lesson-title">
+                            <span class="icon">📖</span> <span id="lessonTitle">Revision Lesson</span>
+                        </div>
+                        <div class="lesson-body" id="lessonBody"></div>
+                        <div class="lesson-example" id="lessonExample"></div>
+                        <div class="lesson-keypoint" id="lessonKeypoint"></div>
+                        <button class="btn btn-continue" id="continueBtn" style="margin-top: 16px; width: 100%;">
+                            ▶ Continue to Question
+                        </button>
+                    </div>
+                </div>
+
+                <div class="completion-screen" id="completionView">
+                    <div class="trophy">🏆</div>
+                    <div class="congrats-title">Congratulations!</div>
+                    <div class="congrats-subtitle">
+                        You have successfully completed <strong>Module 3: Decimals</strong><br>
+                        and demonstrated mastery of place value, operations, and rounding.
+                    </div>
+                    <div class="congrats-qualified">
+                        🎓 You are now qualified for Module 4!
+                    </div>
+                    <div class="final-score" id="finalScore">Total Points: 0</div>
+                    <div class="brand-signoff">
+                        — SKILLIGENT HANDS TUTORS<br>
+                        <small>Empowering learners, one concept at a time.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ─────────────────────────────────────
+            // MODULE 3: DECIMALS
+            // 20 Questions covering: Place Value, Addition, Subtraction,
+            // Multiplication, Division, and Rounding
+            // ─────────────────────────────────────
+            const questions = [{
+                id: 1,
+                topic: 'Place Value',
+                difficulty: 'Easy',
+                text: 'In the number 45.783, what digit is in the hundredths place?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['8'],
+                points: 10,
+                lesson: {
+                    title: 'Understanding Decimal Place Value',
+                    body: 'Decimal places are named by their position after the decimal point. The first place is tenths, second is hundredths, third is thousandths, and so on.',
+                    example: '<strong>Similar Example:</strong> In 23.456, what digit is in the hundredths place?<br>• 4 is in the tenths place<br>• 5 is in the hundredths place<br>• 6 is in the thousandths place<br><strong>Answer: 5</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Tenths = 1st after decimal, Hundredths = 2nd, Thousandths = 3rd. Count carefully!'
+                }
+            }, {
+                id: 2,
+                topic: 'Place Value',
+                difficulty: 'Easy',
+                text: 'What is the value of the digit 6 in the number 3.468?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['6 hundredths', 'six hundredths', '0.06', '6/100'],
+                points: 10,
+                lesson: {
+                    title: 'Value of Decimal Digits',
+                    body: 'Each decimal place has a value. Tenths = 1/10, Hundredths = 1/100, Thousandths = 1/1000. Multiply the digit by its place value.',
+                    example: '<strong>Similar Example:</strong> What is the value of digit 4 in 7.245?<br>• 4 is in the hundredths place<br>• Value = 4 × 1/100 = 4/100 = 0.04<br><strong>Answer: 0.04 or 4 hundredths</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> The value depends on the digit AND its position. A digit in hundredths place has value digit/100.'
+                }
+            }, {
+                id: 3,
+                topic: 'Comparing Decimals',
+                difficulty: 'Easy',
+                text: 'Which is greater: 0.7 or 0.68?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['0.7', '0.70', '.7'],
+                points: 10,
+                lesson: {
+                    title: 'Comparing Decimals',
+                    body: 'When comparing decimals, line up the decimal points. Add zeros to make the same number of decimal places. Then compare from left to right.',
+                    example: '<strong>Similar Example:</strong> Compare 0.5 and 0.47<br>• Write with same decimal places: 0.50 and 0.47<br>• Compare: 50 hundredths > 47 hundredths<br>• So 0.5 is greater<br><strong>Answer: 0.5</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Adding zeros to the right of a decimal does not change its value. 0.7 = 0.70 = 0.700.'
+                }
+            }, {
+                id: 4,
+                topic: 'Adding Decimals',
+                difficulty: 'Easy-Medium',
+                text: 'What is 12.45 + 7.8?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['20.25', '20.25'],
+                points: 10,
+                lesson: {
+                    title: 'Adding Decimals',
+                    body: 'Line up the decimal points vertically. Add zeros to make the same number of decimal places. Add column by column from right to left, carrying when needed.',
+                    example: '<strong>Similar Example:</strong> 15.6 + 8.42<br>• Write with zeros: 15.60 + 8.42<br>• Hundredths: 0+2=2, Tenths: 6+4=10 → write 0, carry 1<br>• Ones: 5+8+1=14 → write 4, carry 1<br>• Tens: 1+1=2<br>• Result: 24.02<br><strong>Answer: 24.02</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Align decimal points! The decimal point in the answer goes directly below the decimal points in the problem.'
+                }
+            }, {
+                id: 5,
+                topic: 'Subtracting Decimals',
+                difficulty: 'Easy-Medium',
+                text: 'What is 15.6 − 8.75?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['6.85', '6.85'],
+                points: 10,
+                lesson: {
+                    title: 'Subtracting Decimals',
+                    body: 'Align decimal points, add zeros if needed, and subtract from right to left. Borrow when necessary.',
+                    example: '<strong>Similar Example:</strong> 20.3 − 14.67<br>• Write: 20.30 − 14.67<br>• Hundredths: 0−7 → borrow → 10−7=3<br>• Tenths: 2−6 → borrow → 12−6=6<br>• Ones: 9−4=5<br>• Tens: 1−1=0<br>• Result: 5.63<br><strong>Answer: 5.63</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Add zeros to the right of the decimal to make subtraction easier. Always align decimal points!'
+                }
+            }, {
+                id: 6,
+                topic: 'Multiplying Decimals',
+                difficulty: 'Medium',
+                text: 'What is 4.5 × 3?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['13.5', '13.50', '13.5'],
+                points: 15,
+                lesson: {
+                    title: 'Multiplying Decimals by Whole Numbers',
+                    body: 'Multiply as if both numbers were whole numbers. Then count the decimal places in the decimal factor and place the decimal point in the product with the same number of decimal places.',
+                    example: '<strong>Similar Example:</strong> 6.3 × 4<br>• Multiply as whole: 63 × 4 = 252<br>• 6.3 has 1 decimal place, so product has 1 decimal place<br>• 252 → 25.2<br><strong>Answer: 25.2</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Count decimal places in the factors. The product must have the same total number of decimal places.'
+                }
+            }, {
+                id: 7,
+                topic: 'Multiplying Decimals',
+                difficulty: 'Medium',
+                text: 'What is 3.2 × 1.5?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['4.8', '4.80', '4.8'],
+                points: 15,
+                lesson: {
+                    title: 'Multiplying Two Decimals',
+                    body: 'Multiply as whole numbers, ignoring the decimal points. Then count the total decimal places in both factors. Place the decimal point in the product to have that total number of decimal places.',
+                    example: '<strong>Similar Example:</strong> 2.4 × 3.5<br>• Multiply: 24 × 35 = 840<br>• Decimal places: 2.4 (1) + 3.5 (1) = 2 total<br>• 840 → 8.40 → 8.4<br><strong>Answer: 8.4</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Add the decimal places from both factors. The product must have exactly that many decimal places.'
+                }
+            }, {
+                id: 8,
+                topic: 'Dividing Decimals',
+                difficulty: 'Medium',
+                text: 'What is 8.4 ÷ 4?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['2.1', '2.10', '2.1'],
+                points: 15,
+                lesson: {
+                    title: 'Dividing Decimals by Whole Numbers',
+                    body: 'Divide as you would with whole numbers, but bring the decimal point straight up into the quotient when you reach it.',
+                    example: '<strong>Similar Example:</strong> 9.6 ÷ 3<br>• Divide: 9 ÷ 3 = 3<br>• Bring up decimal point: 3.<br>• Bring down 6: 6 ÷ 3 = 2<br>• Result: 3.2<br><strong>Answer: 3.2</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Keep the decimal point in the quotient aligned with the decimal point in the dividend.'
+                }
+            }, {
+                id: 9,
+                topic: 'Dividing Decimals',
+                difficulty: 'Medium-Hard',
+                text: 'What is 6.4 ÷ 0.8?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['8', '8.0', '8.00'],
+                points: 20,
+                lesson: {
+                    title: 'Dividing by a Decimal',
+                    body: 'Move the decimal point in both divisor and dividend the same number of places until the divisor is a whole number. Then divide normally.',
+                    example: '<strong>Similar Example:</strong> 9.1 ÷ 1.3<br>• Multiply both by 10: 91 ÷ 13<br>• Divide: 91 ÷ 13 = 7<br>• Check: 7 × 1.3 = 9.1 ✓<br><strong>Answer: 7</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Multiply both numbers by the same power of 10 to make the divisor whole. The quotient stays the same.'
+                }
+            }, {
+                id: 10,
+                topic: 'Rounding Decimals',
+                difficulty: 'Medium',
+                text: 'Round 3.784 to the nearest tenth.',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['3.8', '3.80'],
+                points: 15,
+                lesson: {
+                    title: 'Rounding to the Nearest Tenth',
+                    body: 'Look at the hundredths digit (second after decimal). If it is 5 or more, round the tenths digit up. If it is 4 or less, keep the tenths digit the same. Drop all digits after the tenths place.',
+                    example: '<strong>Similar Example:</strong> Round 5.362 to the nearest tenth<br>• Tenths digit = 3, Hundredths digit = 6<br>• 6 ≥ 5, so round 3 up to 4<br>• Result: 5.4<br><strong>Answer: 5.4</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> The digit to the right of your target place decides whether to round up or down.'
+                }
+            }, {
+                id: 11,
+                topic: 'Rounding Decimals',
+                difficulty: 'Medium',
+                text: 'Round 12.456 to the nearest hundredth.',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['12.46', '12.46'],
+                points: 15,
+                lesson: {
+                    title: 'Rounding to the Nearest Hundredth',
+                    body: 'Look at the thousandths digit (third after decimal). If 5 or more, round the hundredths digit up. If 4 or less, keep it the same. Drop all digits after the hundredths place.',
+                    example: '<strong>Similar Example:</strong> Round 7.893 to the nearest hundredth<br>• Hundredths digit = 9, Thousandths digit = 3<br>• 3 < 5, so keep 9<br>• Result: 7.89<br><strong>Answer: 7.89</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> For hundredths, check the thousandths place. 5 or above → round up. 4 or below → round down.'
+                }
+            }, {
+                id: 12,
+                topic: 'Order of Operations',
+                difficulty: 'Medium-Hard',
+                text: 'What is 5.2 + 3.4 × 2?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['12', '12.0', '12.00'],
+                points: 20,
+                lesson: {
+                    title: 'Order of Operations with Decimals',
+                    body: 'Follow PEMDAS: Multiplication before Addition. Multiply first, then add. The decimal rules for each operation still apply.',
+                    example: '<strong>Similar Example:</strong> 4.5 + 2.5 × 3<br>• Multiplication first: 2.5 × 3 = 7.5<br>• Then addition: 4.5 + 7.5 = 12<br><strong>Answer: 12</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> PEMDAS applies to decimals too! Multiply/Divide before Add/Subtract.'
+                }
+            }, {
+                id: 13,
+                topic: 'Adding Multiple Decimals',
+                difficulty: 'Medium-Hard',
+                text: 'What is 3.75 + 12.4 + 0.835?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['16.985', '16.985'],
+                points: 20,
+                lesson: {
+                    title: 'Adding Multiple Decimals',
+                    body: 'Align all decimal points vertically. Add zeros to make the same number of decimal places. Add column by column, carrying as needed.',
+                    example: '<strong>Similar Example:</strong> 2.6 + 5.78 + 0.459<br>• Align with zeros: 2.600 + 5.780 + 0.459<br>• Thousandths: 0+0+9=9, Hundredths: 0+8+5=13 → write 3, carry 1<br>• Tenths: 6+7+4+1=18 → write 8, carry 1<br>• Ones: 2+5+0+1=8<br>• Result: 8.839<br><strong>Answer: 8.839</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Adding zeros ensures all numbers have the same number of decimal places, making addition straightforward.'
+                }
+            }, {
+                id: 14,
+                topic: 'Multiplying Decimals',
+                difficulty: 'Hard',
+                text: 'What is 0.06 × 0.4?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['0.024', '.024'],
+                points: 20,
+                lesson: {
+                    title: 'Multiplying Small Decimals',
+                    body: 'Multiply as whole numbers, then count total decimal places. Add leading zeros if needed to reach the correct number of decimal places.',
+                    example: '<strong>Similar Example:</strong> 0.05 × 0.3<br>• Multiply: 5 × 3 = 15<br>• Decimal places: 0.05 (2) + 0.3 (1) = 3 total<br>• Add leading zeros: 15 → 0.015<br><strong>Answer: 0.015</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> When the product has fewer digits than needed decimal places, add zeros in front (e.g., 15 needs 3 places → 0.015).'
+                }
+            }, {
+                id: 15,
+                topic: 'Dividing Decimals',
+                difficulty: 'Hard',
+                text: 'What is 0.72 ÷ 0.09?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['8', '8.0', '8.00'],
+                points: 20,
+                lesson: {
+                    title: 'Dividing with Decimal Divisors',
+                    body: 'Move the decimal point in both numbers until the divisor is whole. Then divide and bring the decimal point straight up.',
+                    example: '<strong>Similar Example:</strong> 0.56 ÷ 0.07<br>• Move decimal 2 places: 56 ÷ 7<br>• Divide: 56 ÷ 7 = 8<br><strong>Answer: 8</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Move decimals equally in both numbers. The quotient doesn\'t change.'
+                }
+            }, {
+                id: 16,
+                topic: 'Rounding Decimals',
+                difficulty: 'Hard',
+                text: 'Round 9.999 to the nearest whole number.',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['10', '10.0', '10.00'],
+                points: 20,
+                lesson: {
+                    title: 'Rounding Decimals to Whole Numbers',
+                    body: 'Look at the tenths digit. If it is 5 or more, round the ones digit up. If 4 or less, keep it the same. Drop all decimal places.',
+                    example: '<strong>Similar Example:</strong> Round 7.89 to the nearest whole number<br>• Tenths digit = 8<br>• 8 ≥ 5, so round 7 up to 8<br>• Result: 8<br><strong>Answer: 8</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> For whole number rounding, only check the tenths place. It\'s the gatekeeper!'
+                }
+            }, {
+                id: 17,
+                topic: 'Multi-Step Operations',
+                difficulty: 'Hard',
+                text: 'What is (4.5 + 1.5) × 0.2?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['1.2', '1.20', '1.2'],
+                points: 25,
+                lesson: {
+                    title: 'Multi-Step Decimal Operations',
+                    body: 'Follow PEMDAS. Do operations inside parentheses first, then multiplication or division. Keep decimal rules in mind for each step.',
+                    example: '<strong>Similar Example:</strong> (3.6 + 2.4) × 0.5<br>• Parentheses: 3.6 + 2.4 = 6.0<br>• Multiply: 6.0 × 0.5 = 3.0 = 3<br><strong>Answer: 3</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Work step by step. Parentheses first, then apply decimal rules for each operation.'
+                }
+            }, {
+                id: 18,
+                topic: 'Complex Multiplication',
+                difficulty: 'Harder',
+                text: 'What is 2.5 × 3.2 × 0.5?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['4', '4.0', '4.00'],
+                points: 25,
+                lesson: {
+                    title: 'Multiplying Multiple Decimals',
+                    body: 'Multiply step by step from left to right. Keep track of decimal places or multiply all at once as whole numbers, then place the decimal.',
+                    example: '<strong>Similar Example:</strong> 1.5 × 2.4 × 0.5<br>• Step 1: 1.5 × 2.4 = 3.6<br>• Step 2: 3.6 × 0.5 = 1.8<br>• Or: 15×24×5=1800, decimal places: 1+1+1=3 → 1.800=1.8<br><strong>Answer: 1.8</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> When multiplying several decimals, add all decimal places from all factors for the final product.'
+                }
+            }, {
+                id: 19,
+                topic: 'Word Problem',
+                difficulty: 'Harder',
+                text: 'Lisa bought 3.5 kg of apples at $2.40 per kg and 2.5 kg of oranges at $3.20 per kg. How much did she spend in total?',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['16.4', '16.40', '$16.40', '$16.4', '16.40 dollars'],
+                points: 30,
+                lesson: {
+                    title: 'Decimal Word Problems',
+                    body: 'Break the problem into steps: (1) Calculate cost of each item, (2) Add all costs together. Pay attention to units and decimal places.',
+                    example: '<strong>Similar Example:</strong> John bought 2.5 kg of grapes at $3.60/kg and 1.5 kg of bananas at $1.80/kg. Total?<br>• Grapes: 2.5 × $3.60 = $9.00<br>• Bananas: 1.5 × $1.80 = $2.70<br>• Total: $9.00 + $2.70 = $11.70<br><strong>Answer: $11.70</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Calculate each part separately, then combine. Keep track of decimal places in money (2 decimal places).'
+                }
+            }, {
+                id: 20,
+                topic: 'Complex Rounding & Operations',
+                difficulty: 'Hardest',
+                text: 'Calculate 17.38 + 9.765, then round the result to the nearest tenth.',
+                instruction: 'Type your answer below.',
+                acceptableAnswers: ['27.1', '27.10'],
+                points: 35,
+                lesson: {
+                    title: 'Combined Operations and Rounding',
+                    body: 'Perform the operation first to get the exact answer, then apply rounding rules to the required place value.',
+                    example: '<strong>Similar Example:</strong> Calculate 23.456 + 5.678, then round to the nearest tenth.<br>• Step 1: 23.456 + 5.678 = 29.134<br>• Step 2: Round 29.134 to tenths → look at hundredths (3) → 3<5, so keep tenths (1)<br>• Result: 29.1<br><strong>Answer: 29.1</strong>',
+                    keypoint: '💡 <strong>Key Point:</strong> Always complete the exact calculation first, then round the final result. Don\'t round intermediate steps!'
+                }
+            }];
+
+            // ─────────────────────────────────────
+            // APP STATE
+            // ─────────────────────────────────────
+            const totalQuestions = questions.length;
+            let currentQuestionIndex = 0;
+            let inLessonMode = false;
+            let attemptCount = 0;
+            let totalPoints = 0;
+            let isTransitioning = false;
+            let completed = false;
+
+            // DOM ELEMENTS
+            const questionView = document.getElementById('questionView');
+            const completionView = document.getElementById('completionView');
+            const topicTag = document.getElementById('topicTag');
+            const questionNumber = document.getElementById('questionNumber');
+            const questionText = document.getElementById('questionText');
+            const questionInstruction = document.getElementById('questionInstruction');
+            const answerInput = document.getElementById('answerInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const feedback = document.getElementById('feedback');
+            const lessonPanel = document.getElementById('lessonPanel');
+            const lessonTitle = document.getElementById('lessonTitle');
+            const lessonBody = document.getElementById('lessonBody');
+            const lessonExample = document.getElementById('lessonExample');
+            const lessonKeypoint = document.getElementById('lessonKeypoint');
+            const continueBtn = document.getElementById('continueBtn');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const pointsDisplay = document.getElementById('pointsDisplay');
+            const pointsBadge = document.getElementById('pointsBadge');
+            const finalScore = document.getElementById('finalScore');
+            const contentArea = document.getElementById('contentArea');
+
+            function getCurrentQuestion() {
+                return questions[currentQuestionIndex];
+            }
+
+            function normalizeAnswer(str) {
+                let normalized = str.trim().toLowerCase()
+                    .replace(/\s+/g, ' ')
+                    .replace(/,/g, '')
+                    .replace(/^\$/, '')
+                    .replace(/\s*dollars$/, '')
+                    .replace(/hundredths/g, 'hundredths')
+                    .trim();
+                return normalized;
+            }
+
+            function checkAnswer(userInput) {
+                const question = getCurrentQuestion();
+                const normalized = normalizeAnswer(userInput);
+                return question.acceptableAnswers.some(ans =>
+                    normalizeAnswer(ans) === normalized
+                );
+            }
+
+            function updateProgress() {
+                const progressPercent = Math.round((currentQuestionIndex / totalQuestions) * 100);
+                progressBar.style.width = progressPercent + '%';
+                progressText.textContent = 'Question ' + (currentQuestionIndex + 1) + ' of ' + totalQuestions;
+            }
+
+            function updatePoints(earned) {
+                totalPoints += earned;
+                pointsDisplay.textContent = totalPoints + ' pts';
+                pointsBadge.classList.remove('pulse');
+                void pointsBadge.offsetWidth;
+                pointsBadge.classList.add('pulse');
+            }
+
+            function renderQuestion() {
+                const question = getCurrentQuestion();
+                topicTag.textContent = question.topic;
+                questionNumber.textContent = 'Question ' + (currentQuestionIndex + 1) + ' of ' + totalQuestions;
+                questionText.textContent = question.text;
+                questionInstruction.textContent = question.instruction;
+                answerInput.value = '';
+                answerInput.className = 'answer-input';
+                answerInput.disabled = false;
+                answerInput.focus();
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✅ Submit';
+                feedback.className = 'feedback';
+                feedback.textContent = '';
+                feedback.style.display = 'none';
+                lessonPanel.classList.remove('show');
+                lessonPanel.style.display = 'none';
+                inLessonMode = false;
+                attemptCount = 0;
+                updateProgress();
+                document.getElementById('mainCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function showFeedback(isCorrect, message) {
+                feedback.textContent = message;
+                feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+                feedback.style.display = 'flex';
+            }
+
+            function showLesson() {
+                const question = getCurrentQuestion();
+                const lesson = question.lesson;
+                lessonTitle.textContent = lesson.title;
+                lessonBody.textContent = lesson.body;
+                lessonExample.innerHTML = lesson.example;
+                lessonKeypoint.innerHTML = lesson.keypoint;
+                lessonPanel.classList.add('show');
+                lessonPanel.style.display = 'block';
+                lessonPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                inLessonMode = true;
+            }
+
+            function hideLesson() {
+                lessonPanel.classList.remove('show');
+                lessonPanel.style.display = 'none';
+                inLessonMode = false;
+            }
+
+            function handleCorrectAnswer() {
+                const question = getCurrentQuestion();
+                let earnedPoints;
+                if (attemptCount === 0) {
+                    earnedPoints = question.points;
+                } else if (attemptCount === 1) {
+                    earnedPoints = Math.round(question.points * 0.6);
+                } else {
+                    earnedPoints = Math.round(question.points * 0.3);
+                }
+                if (earnedPoints < 1) earnedPoints = 1;
+
+                updatePoints(earnedPoints);
+                const attemptMsg = attemptCount === 0 ? 'First attempt! +' + earnedPoints + ' pts' :
+                    'Correct! +' + earnedPoints + ' pts (after ' + (attemptCount + 1) + ' attempts)';
+                showFeedback(true, '🎉 Correct! ' + attemptMsg);
+
+                answerInput.className = 'answer-input input-correct';
+                answerInput.disabled = true;
+                submitBtn.disabled = true;
+                submitBtn.textContent = '✓ Done';
+                hideLesson();
+                isTransitioning = true;
+
+                setTimeout(() => {
+                    if (currentQuestionIndex < totalQuestions - 1) {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    } else {
+                        showCompletion();
+                    }
+                    isTransitioning = false;
+                }, 1800);
+            }
+
+            function handleWrongAnswer() {
+                attemptCount++;
+                showFeedback(false, '❌ Not quite right. Let\'s review the concept with a different example.');
+                answerInput.className = 'answer-input input-wrong';
+                answerInput.disabled = true;
+                submitBtn.disabled = true;
+                isTransitioning = true;
+
+                setTimeout(() => {
+                    showLesson();
+                    isTransitioning = false;
+                }, 1500);
+            }
+
+            function showCompletion() {
+                completed = true;
+                questionView.style.display = 'none';
+                completionView.classList.add('show');
+                completionView.style.display = 'block';
+                finalScore.textContent = 'Total Points Earned: ' + totalPoints + ' ⭐';
+                progressBar.style.width = '100%';
+                progressText.textContent = 'All 20 Questions Complete! 🎉';
+                topicTag.textContent = 'Completed';
+                contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            submitBtn.addEventListener('click', function() {
+                if (isTransitioning || completed || inLessonMode) return;
+                const userInput = answerInput.value.trim();
+                if (userInput === '') {
+                    answerInput.style.borderColor = '#ecc94b';
+                    answerInput.placeholder = 'Please type your answer first...';
+                    setTimeout(() => {
+                        answerInput.style.borderColor = '';
+                        answerInput.placeholder = 'Your answer...';
+                    }, 1500);
+                    return;
+                }
+                if (checkAnswer(userInput)) {
+                    handleCorrectAnswer();
+                } else {
+                    handleWrongAnswer();
+                }
+            });
+
+            answerInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !isTransitioning && !completed && !inLessonMode) {
+                    e.preventDefault();
+                    submitBtn.click();
+                }
+            });
+
+            continueBtn.addEventListener('click', function() {
+                if (!inLessonMode || completed) return;
+                hideLesson();
+                answerInput.value = '';
+                answerInput.className = 'answer-input';
+                answerInput.disabled = false;
+                answerInput.focus();
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✅ Submit';
+                feedback.className = 'feedback';
+                feedback.textContent = '';
+                feedback.style.display = 'none';
+                answerInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            function init() {
+                currentQuestionIndex = 0;
+                inLessonMode = false;
+                attemptCount = 0;
+                totalPoints = 0;
+                isTransitioning = false;
+                completed = false;
+                questionView.style.display = 'block';
+                completionView.classList.remove('show');
+                completionView.style.display = 'none';
+                pointsDisplay.textContent = '0 pts';
+                renderQuestion();
+                updateProgress();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>
